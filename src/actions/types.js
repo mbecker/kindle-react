@@ -1,0 +1,2 @@
+export const FETCH_VOLUMES = "FECTH_VOLUMES";
+export const FETCH_HIGHLIGHTS = "FETCH_HIGHLIGHTS";
