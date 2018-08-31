@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import _ from "lodash";
+
+import HighlightItem from "./HighlightItem"
 
 
 class VolumeItem extends Component {
@@ -22,14 +25,23 @@ class VolumeItem extends Component {
 }
 
 renderHighlights() {
-    const { highlights } = this.props;
+    const { highlights } = this.props.volume;
     console.log("Hightlights: " + this.props.volumeId);
     console.log(highlights);
-    return (
-        <div className="col s10 offset-s1 center-align">
-            <h4>No books exist</h4>
-        </div>
-    );
+    console.log("---")
+    
+    const highlightsRender = _.map(highlights, (highlight) => {
+            return <HighlightItem highlight={highlight} key={this.props.volumeId + highlight.location}/>
+        });
+        
+        if (!_.isEmpty(highlightsRender)) {
+            return highlightsRender;
+        }
+        return (
+            <div className="col s10 offset-s1 center-align">
+                <h4>No highlights exist</h4>
+            </div>
+        );
 }
 
  bookImage(props) {
