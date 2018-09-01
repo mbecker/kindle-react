@@ -1,37 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 import HighlightItem from "./HighlightItem"
 
 
 class VolumeItem extends Component {
-  /*
-    handleCompleteClick = completeToDoId => {
-    const { completeToDo } = this.props;
-    completeToDo(completeToDoId);
-  };
-  <span
-            onClick={() => this.handleCompleteClick(todoId)}
-            className="complete-todo-item waves-effect waves-light teal lighten-5 teal-text text-darken-4 btn"
-          >
-            <i className="large material-icons">done</i>
-          </span>
-  */
- constructor(props) {
+
+/*
+constructor(props) {
     super(props);
-    this.props.fetchHighlights(this.props.volumeId);
+    // this.props.fetchHighlights(this.props.volumeId);
 }
+*/
 
 renderHighlights() {
     const { highlights } = this.props.volume;
-    console.log("Hightlights: " + this.props.volumeId);
-    console.log(highlights);
-    console.log("---")
     
+    let keyx = 0;
     const highlightsRender = _.map(highlights, (highlight) => {
-            return <HighlightItem highlight={highlight} key={this.props.volumeId + highlight.location}/>
+        
+            const key = this.props.volumeId + highlight.location + keyx++;
+            
+            return <HighlightItem highlight={highlight} key={key}/>
         });
         
         if (!_.isEmpty(highlightsRender)) {
@@ -57,7 +50,7 @@ renderHighlights() {
   }
 
   render() {
-    const { volume } = this.props;
+    const { volumeId, volume } = this.props;
 
     let bookCover;
 
@@ -67,13 +60,15 @@ renderHighlights() {
         bookCover = this.bookImageDoesNotExist();
     }
 
-
+    const linkTo = "/volume/" + volume.title;
 
     return (
-      <div key={volume.title} className="col s10 offset-s1 volume-list-item teal">
+      <div key={volumeId} className="col s10 offset-s1 volume-list-item teal">
+        
         <h4>
-          {volume.title}          
+        <Link to={linkTo}>{volume.title} </Link>         
         </h4>
+        
         {bookCover}
         {this.renderHighlights()}
       </div>

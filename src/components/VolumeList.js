@@ -4,15 +4,31 @@ import _ from "lodash";
 import * as actions from "../actions";
 import VolumeItem from "./VolumeItem";
 
+var Spinner = require('react-spinkit');
+
+
+
 class VolumeList extends Component {
+
+    constructor(props) {
+        super(props);
+        const { volumes } = this.props;
+        if(Object.keys(volumes).length === 0) {
+            this.props.fetchVolumes();
+        }
+    }
+
+
     state = {
     };
 
 
     renderVolumes() {
         const { volumes } = this.props;
+        let keyx = 0;
         const volumeItems = _.map(volumes, (volume) => {
-            return <VolumeItem key={volume.id} volume={volume.data} volumeId={volume.id} />;
+            keyx = keyx + 1;
+            return <VolumeItem key={volume.id + keyx} volume={volume.data} volumeId={volume.id} />;
         });
         if (!_.isEmpty(volumeItems)) {
             return volumeItems;
@@ -24,15 +40,16 @@ class VolumeList extends Component {
         );
     }
 
-    constructor(props) {
-        super(props);
-        this.props.fetchVolumes();
-    }
+    
 
     render() {
+        const { loading } = this.props;
         return (
             <div className="to-do-list-container">
-                <div className="row">
+                <div className="row" key="row">
+                    {loading ? <Spinner name="line-scale" /> : "Not Loading"}
+                </div>
+                <div className="row" key="row2">                
                     {this.renderVolumes()}
                 </div>
             </div>
@@ -40,9 +57,10 @@ class VolumeList extends Component {
     }
 }
 
-const mapStateToProps = ({ volumes }) => {
+const mapStateToProps = ({ loading, volumes }) => {
     return {
-        volumes
+        loading
+        , volumes
     };
 };
 

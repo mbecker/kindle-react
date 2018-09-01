@@ -30,9 +30,9 @@ class HighlightItem extends Component {
 		  case "pink":
 		    color = "pink";
 		    break;
-		  case "Bananas":
-		    console.log("Bananas are $0.48 a pound.");
-		    break;
+		  case "blau":
+				color = "blue";
+				break;
 		  case "Cherries":
 		    console.log("Cherries are $3.00 a pound.");
 		    break;
@@ -48,7 +48,7 @@ class HighlightItem extends Component {
   		backgroundColor: color
 		};
     return (
-      <div><span style={divStyle}>{highlight.content}</span><span>- {highlight.location}</span></div>
+      <div key={highlight.location}><span style={divStyle}>{highlight.content}</span><span>- {highlight.location}</span></div>
     );
   }
 }

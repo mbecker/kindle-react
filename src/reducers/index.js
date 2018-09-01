@@ -3,10 +3,12 @@
 
 import { combineReducers } from "redux";
 
+import loading from "./loadingReducer";
 import volumes from "./volumeReducer";
 import highlights from "./highlightReducer";
 
 export default combineReducers({
-    volumes
+    loading
+    , volumes
     , highlights
 });

@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import './App.css';
 
@@ -16,6 +17,27 @@ class App extends Component {
       </div>
     );
   }
+}
+
+export default App;
+*/
+
+
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ConnectedRouter } from 'connected-react-router'
+import SidebarExample from './routes'
+
+const App = ({ history }) => {
+  return (
+    <ConnectedRouter history={history}>
+      { SidebarExample }
+    </ConnectedRouter>
+  )
+}
+
+App.propTypes = {
+  history: PropTypes.object,
 }
 
 export default App;

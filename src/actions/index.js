@@ -1,7 +1,30 @@
 import { volumesRef, highlightsRef } from "../config/firebase";
-import { FETCH_VOLUMES, FETCH_HIGHLIGHTS } from "./types";
+import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS } from "./types";
 
 export const fetchVolumes = () => async dispatch => {
+    dispatch({
+        type: START_FETCH_VOLUMES,
+        payload: true
+    })
+    volumesRef.get().then((querySnapshot) => {
+        const payload = querySnapshot.docs.map(function (documentSnapshot) {
+            return {
+                id: documentSnapshot.id,
+                data: documentSnapshot.data()
+            }
+        });
+        dispatch({
+            type: FETCH_VOLUMES,
+            payload: payload
+        });
+    });
+};
+
+/**
+   * @param {String} volumeId
+   * @returns {Void} Redux Store
+   */
+export const fetchVolume = (volumeId) => async dispatch => {
     volumesRef.get().then((querySnapshot) => {
         const payload = querySnapshot.docs.map(function (documentSnapshot) {
             return {
@@ -26,4 +49,5 @@ export const fetchHighlights = (volumeId) => async dispatch => {
             payload: payload
         });
     })
-}
+};
+
