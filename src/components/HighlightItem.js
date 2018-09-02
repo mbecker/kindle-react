@@ -25,13 +25,13 @@ class HighlightItem extends Component {
 		
 		switch (highlight.color) {
 		  case "gelb":
-		    color = "yellow";
+		    color = "#FFD929";
 		    break;
 		  case "pink":
 		    color = "pink";
 		    break;
 		  case "blau":
-				color = "blue";
+				color = "#539DFF";
 				break;
 		  case "Cherries":
 		    console.log("Cherries are $3.00 a pound.");

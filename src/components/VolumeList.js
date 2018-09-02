@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import * as actions from "../actions";
 import VolumeItem from "./VolumeItem";
-
-var Spinner = require('react-spinkit');
-
+import Spinner from "react-spinkit";
 
 
 class VolumeList extends Component {
@@ -47,10 +45,7 @@ class VolumeList extends Component {
         return (
             <div className="to-do-list-container">
                 <div className="row" key="row">
-                    {loading ? <Spinner name="line-scale" /> : "Not Loading"}
-                </div>
-                <div className="row" key="row2">                
-                    {this.renderVolumes()}
+                {loading ? <Spinner name="line-scale" fadeIn='none' /> : this.renderVolumes()}
                 </div>
             </div>
         );
