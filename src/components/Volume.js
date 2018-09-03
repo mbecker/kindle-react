@@ -34,7 +34,20 @@ renderVolume(){
     const volume = _.find(volumes, function(o) { return o.data.title === match.params.title; });
     
     if (typeof volume !== "undefined") {
-        return <VolumeItem key={volume.id} volume={volume.data} volumeId={volume.id} />;
+        console.log(volume.data);
+        return (
+            <div>
+            <section class="jumbotron text-center">
+                  <div class="container">
+                    <h1 class="jumbotron-heading">{volume.data.title}</h1>
+                    <p class="lead text-muted">{volume.data.authors}</p>
+                    
+                  </div>
+                </section>
+          
+                <VolumeItem key={volume.id} volume={volume.data} volumeId={volume.id} />;
+                </div>
+        );
     }
     return this.renderNoBooks();
 }
@@ -43,7 +56,8 @@ renderVolume(){
     const { loading, volumes } = this.props;
     
     return (
-      <div className="col s10 offset-s1 volume-list-item teal">
+
+      <div>
         {loading ? <Spinner name="line-scale" fadeIn='none' /> : this.renderVolume()}
       </div>
     );
