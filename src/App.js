@@ -23,16 +23,22 @@ export default App;
 */
 
 
-import React from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'connected-react-router'
 import routes from './routes';
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 
-const App = ({ history }) => {
-  return (
-    <ConnectedRouter history={history}>
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { history } = this.props;
+    return (
+      <ConnectedRouter history={history}>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
@@ -48,7 +54,7 @@ const App = ({ history }) => {
       </head>
 
       <body>
-      <NavBar />
+      <NavBar history={history}/>
 
         { routes }
 
@@ -56,7 +62,8 @@ const App = ({ history }) => {
       </body>   
     </html>
     </ConnectedRouter>
-  )
+    );
+  }
 }
 
 App.propTypes = {
