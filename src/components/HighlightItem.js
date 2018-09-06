@@ -17,41 +17,51 @@ class HighlightItem extends Component {
           </span>
   */
 
-
   render() {
     const { highlight } = this.props;
-		
-		let color = "white";
-		
-		switch (highlight.color) {
-		  case "gelb":
-		    color = "#FFD929";
-		    break;
-		  case "pink":
-		    color = "pink";
-		    break;
-		  case "blau":
-				color = "#539DFF";
-				break;
-		  case "Cherries":
-		    console.log("Cherries are $3.00 a pound.");
-		    break;
-		  case "Mangoes":
-		  case "Papayas":
-		    console.log("Mangoes and papayas are $2.79 a pound.");
-		    break;
-		  default:
-		    color = "white";
-		}
-		
-		var divStyle = {
-  		backgroundColor: color
-		};
+
+    let color = "black";
+    let backgroundColor = "white"
+
+    switch (highlight.color) {
+      case "gelb":
+        backgroundColor = "#FFD929";
+        color = "#4c4a4a";
+        break;
+      case "pink":
+        backgroundColor = "#957bbe";
+        color = "white";
+        break;
+      case "blau":
+        backgroundColor = "#539DFF";
+        break;
+      case "Cherries":
+        console.log("Cherries are $3.00 a pound.");
+        break;
+      case "Mangoes":
+      case "Papayas":
+        console.log("Mangoes and papayas are $2.79 a pound.");
+        break;
+      default:
+        backgroundColor = "white";
+    }
+
+    var divStyle = {
+      backgroundColor: backgroundColor,
+      color: color
+    };
     return (
-      <div key={highlight.location}><span style={divStyle}>{highlight.content}</span><span>- {highlight.location}</span></div>
+      <li
+        key={highlight.location}
+        className="list-group-item d-flex justify-content-between lh-condensed"
+      >
+        <div>
+          <span className="my-0" style={divStyle}>{highlight.content}</span>
+        </div>
+        <span className="text-muted">{highlight.location}</span>
+      </li>
     );
   }
 }
-
 
 export default connect()(HighlightItem);

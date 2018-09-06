@@ -31,37 +31,28 @@ import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+  
   render() {
     const { history } = this.props;
     return (
+      
+    
+    
       <ConnectedRouter history={history}>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <link rel="icon" href="../../../../favicon.ico" />
-
-        <title>Album example for Bootstrap</title>
-
-
-        
-      </head>
-
-      <body>
-      <NavBar history={history}/>
+      <div>
+      
+      
+      <NavBar id="top" history={history}/>
 
         { routes }
 
         <Footer />
-      </body>   
-    </html>
+      
+      
+      </div>   
     </ConnectedRouter>
+    
+    
     );
   }
 }
