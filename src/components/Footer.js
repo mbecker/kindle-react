@@ -16,9 +16,9 @@ class Footer extends Component {
         <footer className="text-muted">
         <div className="container">
           <p className="float-right">
-            <a href="#">Back to top</a>
+            <a href="#top" role="button">Back to top</a>
           </p>
-          <p>Kinde Ebook is from Mats Becker - 2018</p>
+          <p>Kinde Ebook is - Mats Becker 2018</p>
         </div>
       </footer>
 

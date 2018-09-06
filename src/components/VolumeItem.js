@@ -70,7 +70,7 @@ class VolumeItem extends Component {
     let columnClassName = "col-md-4";
     if (volumeCount === 0) columnClassName = "col-md-6";
 
-    const linkTo = "/volume/" + volume.title + "#volumeTitle";
+    const linkTo = "/book/" + volume.title + "#volumeTitle";
 
     let bookCover;
     bookCover = this.bookImageDoesNotExist(linkTo);

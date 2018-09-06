@@ -41,7 +41,6 @@ class NavBar extends Component {
                   <h4 className="text-white">Navigation</h4>
                   <ul className="list-unstyled">
                     <li><Link className="text-white" to="/">Home</Link></li>
-                    <li><Link className="text-white" to="/volumes">Volumes</Link></li>
                   </ul>
                 </div>
               </div>

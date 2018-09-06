@@ -12,7 +12,7 @@ class Volume extends Component {
     super(props);
     //this.props.fetchVolumes();
     const { volumes } = this.props;
-    console.log(volumes);
+    
     if (Object.keys(volumes).length === 0) {
       this.props.fetchVolumes();
     } else {
@@ -22,9 +22,12 @@ class Volume extends Component {
 
   renderNoBooks() {
     return (
-      <div className="col s10 offset-s1 center-align">
-        <h4>No book exist</h4>
-      </div>
+      <section className="jumbotron text-center">
+            <div className="container">
+              <h1 className="jumbotron-heading">No book exists for this title</h1>
+              
+            </div>
+          </section>
     );
   }
 
@@ -65,7 +68,7 @@ class Volume extends Component {
     });
 
     if (typeof volume !== "undefined") {
-      console.log(volume.data);
+      
       return (
         <div id="volumeTitle">
           <section className="jumbotron text-center">
