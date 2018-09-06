@@ -12,7 +12,7 @@ class Volume extends Component {
     super(props);
     //this.props.fetchVolumes();
     const { volumes } = this.props;
-    
+
     if (Object.keys(volumes).length === 0) {
       this.props.fetchVolumes();
     } else {
@@ -23,16 +23,14 @@ class Volume extends Component {
   renderNoBooks() {
     return (
       <section className="jumbotron text-center">
-            <div className="container">
-              <h1 className="jumbotron-heading">No book exists for this title</h1>
-              
-            </div>
-          </section>
+        <div className="container">
+          <h1 className="jumbotron-heading">No book exists for this title</h1>
+        </div>
+      </section>
     );
   }
 
   renderHighlights(highlights) {
-    
     let keyx = 0;
     const highlightsRender = _.map(highlights, highlight => {
       const key = this.props.volumeId + highlight.location + keyx++;
@@ -44,10 +42,16 @@ class Volume extends Component {
       return (
         <div className="col-md-6 order-md-2 mb-4">
           <h4 className="d-flex justify-content-between align-items-center mb-3">
+            <div>
             <span className="text-muted">Highlights / Notes</span>
-            <span className="badge badge-secondary badge-pill">{keyx}</span>
+            <span className="badge badge-secondary badge-pill" style={{marginLeft: 20 + "px", verticalAlign: "super",}}>{keyx}</span></div>
+            <span className="text-muted">Location</span>  
           </h4>
-          <ul className="list-group mb-3">{highlightsRender}</ul>
+          
+          <ul className="list-group mb-3">
+            
+            {highlightsRender}
+          </ul>
         </div>
       );
     }
@@ -62,13 +66,12 @@ class Volume extends Component {
 
   renderVolume() {
     const { volumes, match } = this.props;
-    
+
     const volume = _.find(volumes, function(o) {
       return o.data.title === match.params.title;
     });
 
     if (typeof volume !== "undefined") {
-      
       return (
         <div id="volumeTitle">
           <section className="jumbotron text-center">
@@ -80,16 +83,14 @@ class Volume extends Component {
           <div className="album py-5 bg-light">
             <div className="container">
               <div className="row">
-                
                 <VolumeItem
                   key={volume.id}
                   volume={volume.data}
                   volumeId={volume.id}
                   volumeCount={0}
                 />
-                
+
                 {this.renderHighlights(volume.data.highlights)}
-                
               </div>
             </div>
           </div>
@@ -101,17 +102,17 @@ class Volume extends Component {
 
   renderLaoding() {
     return (
-        <section className="jumbotron text-center">
-            <div className="container">
-              <Spinner name="line-scale" fadeIn="none" />
-            </div>
-          </section>
-    )
+      <section className="jumbotron text-center">
+        <div className="container">
+          <Spinner name="line-scale" fadeIn="none" />
+        </div>
+      </section>
+    );
   }
 
   render() {
     const { loading } = this.props;
-    
+
     if (loading === true) return this.renderLaoding();
 
     return this.renderVolume();
