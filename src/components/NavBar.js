@@ -9,25 +9,78 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     
-    this.toggle = this.toggle.bind(this);
-    this.toggleClose = this.toggleClose.bind(this);
-    this.state = { collapse: false };
+    this.toggleSubmenu = this.toggleSubmenu.bind(this);
+    
+    this.state = { isOpenSubmenu: false };
   }
-
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
+  
+  toggleSubmenu() {
+    this.setState({ isOpenSubmenu: !this.state.isOpenSubmenu });
     // this.props.onUpdate()
   }
 
-  toggleClose(){
-    this.setState({ collapse: false });
-  }
 
   render() {
-    const { history } = this.props;
-    const { collapse } = this.state;
-    history.listen(location => this.toggleClose());
+    const { history, collapse } = this.props;
+    const { isOpenSubmenu } = this.state;
+    
+    let navCollapseClassName = "active";
+    if(!collapse) navCollapseClassName = "";
+    
+    history.listen(location => console.log("history location change"));
     return (
+      
+        <nav id="sidebar" className={navCollapseClassName}>
+            <div className="sidebar-header">
+                <h3>Collection</h3>
+            </div>
+
+            <ul className="list-unstyled components">
+                <p>Kindle Books</p>
+                <li className="">
+                    <Link className="" to="/">Books</Link>
+                </li>
+                <li className="">
+                    <Link className="" to="/activities">Activities</Link>
+                </li>
+                {/*
+                <li>
+                    <a onClick={this.toggleSubmenu} href="#" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Pages</a>
+                    <Collapse isOpen={isOpenSubmenu} >
+                    <ul className="list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                    </Collapse>
+                </li>
+                */}
+            </ul>
+
+            <ul className="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" className="download">Contact</a>
+                </li>
+            </ul>
+        </nav>
+        
+       
+
+    );
+  }
+}
+
+
+
+export default NavBar
+
+ /*
       <header>
         <Collapse isOpen={collapse}>
           <div className="bg-dark" id="navbarHeader">
@@ -63,12 +116,4 @@ class NavBar extends Component {
         </div>
 
       </header>
-
-
-    );
-  }
-}
-
-
-
-export default NavBar
+      */

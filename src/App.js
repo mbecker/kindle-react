@@ -26,27 +26,46 @@ export default App;
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'connected-react-router'
-import routes from './routes';
+import Routes from './routes';
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 
 class App extends Component {
   
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      collapse: false
+    }
+    
+    this.toggle = this.toggle.bind(this);
+  }
+  
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
+    // this.props.onUpdate()
+    console.log("toggle: " + this.state.collapse)
+  }
+  
+  
+  
   render() {
     const { history } = this.props;
+    const { collapse } = this.state;
     return (
       
     
     
       <ConnectedRouter history={history}>
-      <div>
+      <div class="wrapper">
       
       
-      <NavBar id="top" history={history}/>
+      <NavBar id="top" history={history} collapse={collapse}/>
 
-        { routes }
+        <Routes toggle={this.toggle}/>
 
-        <Footer />
+        
       
       
       </div>   
