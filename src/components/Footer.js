@@ -18,7 +18,7 @@ class Footer extends Component {
           <p className="float-right">
             <a href="#top" role="button">Back to top</a>
           </p>
-          <p>Kinde Ebook is - Mats Becker 2018</p>
+          <p>Kindle Ebooks by Mats Becker 2018</p>
         </div>
       </footer>
 

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Collapse, Button, } from 'reactstrap';
+
 import { Link } from 'react-router-dom'
 
-import { IoIosBook } from "react-icons/io";
+
 
 
 class NavBar extends Component {
+  
+  /*
   constructor(props) {
     super(props);
     
@@ -14,15 +16,16 @@ class NavBar extends Component {
     this.state = { isOpenSubmenu: false };
   }
   
+  
   toggleSubmenu() {
     this.setState({ isOpenSubmenu: !this.state.isOpenSubmenu });
-    // this.props.onUpdate()
   }
+  */
 
 
   render() {
     const { history, collapse } = this.props;
-    const { isOpenSubmenu } = this.state;
+    
     
     let navCollapseClassName = "active";
     if(!collapse) navCollapseClassName = "";

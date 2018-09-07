@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router'
 import NoMatch from '../components/NoMatch'
 import VolumeList from '../components/VolumeList'
 import Volume from "../components/Volume"
+import Footer from '../components/Footer'
 
 import { Collapse } from 'reactstrap';
 
@@ -45,16 +46,16 @@ class Routes extends Component {
                     
                         <ul className="nav navbar-nav ml-auto">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#">Page</a>
+                                <a className="nav-link" href="#top">Page</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Page</a>
+                                <a className="nav-link" href="#top">Page</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Page</a>
+                                <a className="nav-link" href="#top">Page</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Page</a>
+                                <a className="nav-link" href="#top">Page</a>
                             </li>
                         </ul>
                     </Collapse>
@@ -69,6 +70,8 @@ class Routes extends Component {
       <Route path="/book/:title" component={Volume} />
       <Route component={NoMatch} />
     </Switch>
+    
+    <Footer />
   
   </div>
        

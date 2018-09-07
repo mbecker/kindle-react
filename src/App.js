@@ -28,7 +28,7 @@ import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'connected-react-router'
 import Routes from './routes';
 import NavBar from './components/NavBar'
-import Footer from './components/Footer'
+
 
 class App extends Component {
   
@@ -64,7 +64,7 @@ class App extends Component {
       <NavBar id="top" history={history} collapse={collapse}/>
 
         <Routes toggle={this.toggle}/>
-
+      
         
       
       
