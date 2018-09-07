@@ -31,6 +31,7 @@ class NavBar extends Component {
     return (
       
         <nav id="sidebar" className={navCollapseClassName}>
+        <div className="sticky-top">
             <div className="sidebar-header">
                 <h3>Collection</h3>
             </div>
@@ -68,6 +69,7 @@ class NavBar extends Component {
                     <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" className="download">Contact</a>
                 </li>
             </ul>
+            </div>
         </nav>
         
        
