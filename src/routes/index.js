@@ -6,6 +6,8 @@ import VolumeList from '../components/VolumeList'
 import Volume from "../components/Volume"
 import Footer from '../components/Footer'
 
+import { Link } from 'react-router-dom'
+
 import { Collapse } from 'reactstrap';
 
 class Routes extends Component {
@@ -46,17 +48,9 @@ class Routes extends Component {
                     
                         <ul className="nav navbar-nav ml-auto">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#top">Page</a>
+                                <Link className="nav-link" to="/">All Books</Link>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#top">Page</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#top">Page</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#top">Page</a>
-                            </li>
+                            
                         </ul>
                     </Collapse>
                 </div>
