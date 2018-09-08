@@ -66,12 +66,13 @@ class NavBar extends Component {
                 </li>
                 */}
             </ul>
-
+            {/*
             <ul className="list-unstyled CTAs">
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" className="download">Contact</a>
+                    <a href="" className="download">Contact</a>
                 </li>
             </ul>
+            */}
             </div>
         </nav>
         

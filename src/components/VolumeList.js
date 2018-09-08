@@ -21,6 +21,7 @@ class VolumeList extends Component {
     let keyx = 0;
     const volumeItems = _.map(volumes, volume => {
       keyx = keyx + 1;
+      
       return (
         <VolumeItem
           key={volume.id + keyx}

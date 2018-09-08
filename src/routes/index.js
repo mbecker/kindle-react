@@ -48,7 +48,7 @@ class Routes extends Component {
                     
                         <ul className="nav navbar-nav ml-auto">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/">All Books</Link>
+                                <Link className="nav-link" to="/">All Ebooks</Link>
                             </li>
                             
                         </ul>
