@@ -14,13 +14,10 @@ class Volume extends Component {
     
     this.state = { key: "",
         volumeId: "",
-        volume: null };
+        volume: null, isToggleOn: true };
     this.updateVolumeId = this.updateVolumeId.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    
-    
-    
-    
+    this.handleClick = this.handleClick.bind(this);
   }
   
   componentDidMount() {
@@ -50,11 +47,6 @@ class Volume extends Component {
   
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("Volume.js - componentDidUpdate");
-    
-   
-    
-    
-    
   }
   
   shouldComponentUpdate(nextProps, nextState) {
@@ -85,7 +77,11 @@ class Volume extends Component {
     return true;
   }
   
-  
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
 
   handleChange(event) {
     this.setState({volumeId: event.target.value});
@@ -93,8 +89,11 @@ class Volume extends Component {
 
   updateVolumeId() {
     const { key, volumeId } = this.state;
-    console.log("Volume - updateVolumeId", key, volumeId);
-    if(typeof key !== "undefined" && key.length > 0 && typeof volumeId !== "undefined" && volumeId.length > 0) this.props.updateVolumeId(key, volumeId);
+    console.log("Volume.js - updateVolumeId: ", key, volumeId);
+    if(typeof key !== "undefined" && key.length > 0 && typeof volumeId !== "undefined" && volumeId.length > 0) {
+      console.log("Volume.js - updateVolumeId --> this.props.updateVolumeId");
+      this.props.updateVolumeId(key, volumeId);
+    }
     
   }
 
@@ -182,7 +181,7 @@ class Volume extends Component {
               <div className="row">
                 <div className="col-md-4 order-md-1">
                   <h4 className="mb-3">Volume ID</h4>
-                  <form className="needs-validation" noValidate="" onSubmit={this.updateVolumeId}>
+                  <form className="needs-validation" noValidate="" >
                     
 
                     
@@ -198,8 +197,10 @@ class Volume extends Component {
                     <div className="row" >
 
                       <hr className="mb-4" />
-                      <button className="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
-                      <input type="submit" value="Submit" />
+                      <button className="btn btn-primary btn-lg btn-block" onClick={this.updateVolumeId}>Save</button>
+                      <button className="btn btn-primary btn-lg btn-block" onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
                     </div >
                   </form >
 

@@ -3,7 +3,7 @@ import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS, UPDATE_VOLUMES } 
 
 export const updateVolumeId = (volumeKey, volumeId) => async dispatch => {
     volumeRefSet(volumeKey, volumeId).then((value) => {
-        console.log("updateVolume", value);
+        console.log("actions/index.js - updateVolume: ", value);
         dispatch({
              type: UPDATE_VOLUMES,
              payload: value
