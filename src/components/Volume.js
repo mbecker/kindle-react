@@ -18,6 +18,21 @@ class Volume extends Component {
     this.updateVolumeId = this.updateVolumeId.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.updateVolumeInState = this.updateVolumeInState.bind(this);
+  }
+
+  updateVolumeInState(volumes, volumeTitle){
+    const volume = _.find(volumes, function (o) {
+      return o.data.title === volumeTitle;
+    });
+    
+    if (typeof volume !== "undefined") {
+      this.setState({
+        key: volume.id,
+        volumeId: volume.data.volumeId,
+        volume: volume
+      });
+    }
   }
   
   componentDidMount() {
@@ -29,19 +44,7 @@ class Volume extends Component {
       this.props.fetchVolumes();
     } else if(this.state.volume === null) {
       console.log("Volume.js - No fetchVolumes()");
-      
-      const volume = _.find(volumes, function (o) {
-        return o.data.title === match.params.title;
-      });
-      
-      if (typeof volume !== "undefined") {
-        this.setState({
-          key: volume.id,
-          volumeId: volume.data.volumeId,
-          volume: volume
-        });
-      }
-    
+      this.updateVolumeInState(volumes, match.params.title);
     }
   }
   
@@ -52,32 +55,41 @@ class Volume extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log("Volume.js - shouldComponentUpdate - nextProps:", nextProps);
     console.log("Volume.js - shouldComponentUpdate - nextState:", nextState);
-    
-    
-    if(this.state.key === "" && this.state.volume === null && typeof nextState.key !== "undefined" && nextState.key !== "" && nextState.key.length > 0 && typeof nextState.volume !== "undefined" && typeof nextState.volume.data !== "undefined") {
-      console.log("Volume.js - shouldComponentUpdate - should update because nextState is the volume: ", nextState.volume);
-      return true;
+
+
+    // Update state/current volume ("/books/Kafka%20The%20Guide" is new loaded)
+    // Check that nexProps.volumes exists
+    if(nextState.key.length === 0 && typeof nextProps.volumes !== "undefined" && typeof nextProps.match !== "undefined" && typeof nextProps.match.params !== "undefined" && typeof nextProps.match.params.title !== "undefined") {
+      console.log("shouldComponentUpdate - Update state/current volume - nextProps.volumes: ", nextProps.volumes);
+      this.updateVolumeInState(nextProps.volumes, nextProps.match.params.title);
     }
     
-    if(this.state.volume === null && Object.keys(nextProps).length > 0 && typeof nextProps.match !== "undefined" && typeof nextProps.match.params !== "undefined" && typeof nextProps.match.params.title !== "undefined" && typeof nextProps.volumes !== "undefined" && Object.keys(nextProps.volumes).length > 0) {
-      const volume = _.find(nextProps.volumes, function (o) {
-        return o.data.title === nextProps.match.params.title;
-      });
+    
+    // if(this.state.key === "" && this.state.volume === null && typeof nextState.key !== "undefined" && nextState.key !== "" && nextState.key.length > 0 && typeof nextState.volume !== "undefined" && typeof nextState.volume.data !== "undefined") {
+    //   console.log("Volume.js - shouldComponentUpdate - should update because nextState is the volume: ", nextState.volume);
+    //   return true;
+    // }
+    
+    // if(this.state.volume === null && Object.keys(nextProps).length > 0 && typeof nextProps.match !== "undefined" && typeof nextProps.match.params !== "undefined" && typeof nextProps.match.params.title !== "undefined" && typeof nextProps.volumes !== "undefined" && Object.keys(nextProps.volumes).length > 0) {
+    //   const volume = _.find(nextProps.volumes, function (o) {
+    //     return o.data.title === nextProps.match.params.title;
+    //   });
       
-      if (typeof volume !== "undefined") {
-        console.log("Volume.js - shouldComponentUpdate - setState:", volume.id);
-        this.setState({
-          key: volume.id,
-          volumeId: volume.data.volumeId,
-          volume: volume
-        });
-      }
-    }
+    //   if (typeof volume !== "undefined") {
+    //     console.log("Volume.js - shouldComponentUpdate - setState:", volume.id);
+    //     this.setState({
+    //       key: volume.id,
+    //       volumeId: volume.data.volumeId,
+    //       volume: volume
+    //     });
+    //   }
+    // }
     
     return true;
   }
   
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
@@ -87,7 +99,8 @@ class Volume extends Component {
     this.setState({volumeId: event.target.value});
   }
 
-  updateVolumeId() {
+  updateVolumeId(e) {
+    e.preventDefault();
     const { key, volumeId } = this.state;
     console.log("Volume.js - updateVolumeId: ", key, volumeId);
     if(typeof key !== "undefined" && key.length > 0 && typeof volumeId !== "undefined" && volumeId.length > 0) {

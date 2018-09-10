@@ -1,14 +1,29 @@
-import { volumesRef, volumeRefSet, highlightsRef } from "../config/firebase";
+import { volumesRef, updateVolume, highlightsRef } from "../config/firebase";
 import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS, UPDATE_VOLUMES } from "./types";
 
 export const updateVolumeId = (volumeKey, volumeId) => async dispatch => {
-    volumeRefSet(volumeKey, volumeId).then((value) => {
-        console.log("actions/index.js - updateVolume: ", value);
-        dispatch({
-             type: UPDATE_VOLUMES,
-             payload: value
+    updateVolume(volumeKey, volumeId)
+        // .then((value) => {
+        //     console.log("actions/index.js - updateVolume: ", value);
+        //     dispatch({
+        //          type: UPDATE_VOLUMES,
+        //          payload: value
+        //     });
+        // })
+        .then(function () {
+            console.log("Document successfully updated!");
+            dispatch({
+                type: UPDATE_VOLUMES,
+                payload: {
+                    volumeKey: volumeKey,
+                    volumeId: volumeId
+                }
+            });
+        })
+        .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
         });
-    })
 };
 
 export const fetchVolumes = () => async dispatch => {

@@ -17,8 +17,8 @@ db.settings({
   });
 
 export const volumesRef = db.collection("volumes");
-export const volumeRefSet = function(key, volumeId) {
-  return db.collection("volumes").doc(key).set({
+export const updateVolume = function(key, volumeId) {
+  return db.collection("volumes").doc(key).update({
     volumeId: volumeId,
   })
 }
