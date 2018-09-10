@@ -17,6 +17,11 @@ db.settings({
   });
 
 export const volumesRef = db.collection("volumes");
+export const volumeRefSet = function(key, volumeId) {
+  return db.collection("volumes").doc(key).set({
+    volumeId: volumeId,
+  })
+}
 export const highlightsRef = function(volumeId){
   return db.collection("highlights").where("volume", "==", "volume/" + volumeId)
 }

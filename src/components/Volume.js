@@ -12,12 +12,28 @@ class Volume extends Component {
     super(props);
     //this.props.fetchVolumes();
     const { volumes } = this.props;
-
+    this.state = {
+      key: "",
+      volumeId: ""
+    }
+    this.updateVolumeId = this.updateVolumeId.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     if (Object.keys(volumes).length === 0) {
       this.props.fetchVolumes();
     } else {
       // console.log("-- NO fetch volumes --");
     }
+  }
+
+  handleChange(event) {
+    this.setState({volumeId: event.target.value});
+  }
+
+  updateVolumeId() {
+    const { key, volumeId } = this.state;
+    console.log("Volume - updateVolumeId", key, volumeId);
+    if(typeof key !== "undefined" && key.length > 0 && typeof volumeId !== "undefined" && volumeId.length > 0) this.props.updateVolumeId(key, volumeId);
+    
   }
 
   renderNoBooks() {
@@ -43,13 +59,13 @@ class Volume extends Component {
         <div className="col-md-6 order-md-2 mb-4">
           <h4 className="d-flex justify-content-between align-items-center mb-3">
             <div>
-            <span className="text-muted">Highlights / Notes</span>
-            <span className="badge badge-secondary badge-pill" style={{marginLeft: 20 + "px", verticalAlign: "super",}}>{keyx}</span></div>
-            <span className="text-muted">Location</span>  
+              <span className="text-muted">Highlights / Notes</span>
+              <span className="badge badge-secondary badge-pill" style={{ marginLeft: 20 + "px", verticalAlign: "super", }}>{keyx}</span></div>
+            <span className="text-muted">Location</span>
           </h4>
-          
+
           <ul className="list-group mb-3">
-            
+
             {highlightsRender}
           </ul>
         </div>
@@ -64,14 +80,29 @@ class Volume extends Component {
     );
   }
 
-  renderVolume() {
-    const { volumes, match } = this.props;
+  renderLaoding() {
+    return (
+      <section className="jumbotron text-center">
+        <div className="container">
+          <Spinner name="line-scale" fadeIn="none" />
+        </div>
+      </section>
+    );
+  }
 
-    const volume = _.find(volumes, function(o) {
+  render() {
+    const { loading, volumes, match } = this.props;
+
+    if (loading === true) return this.renderLaoding();
+
+    const volume = _.find(volumes, function (o) {
       return o.data.title === match.params.title;
     });
 
     if (typeof volume !== "undefined") {
+      this.setState({
+        key: volume.id, volumeId: volume.data.volumeId
+      });
       return (
         <div id="volumeTitle">
           <section className="jumbotron text-center">
@@ -92,30 +123,41 @@ class Volume extends Component {
 
                 {this.renderHighlights(volume.data.highlights)}
               </div>
-            </div>
-          </div>
-        </div>
+              <div className="row">
+                <div className="col-md-4 order-md-1">
+                  <h4 className="mb-3">Volume ID</h4>
+                  <form className="needs-validation" noValidate="" onSubmit={this.updateVolumeId}>
+                    
+
+                    
+
+                    <div className="mb-3" >
+                      
+                      <input type="text" className="form-control" id="volumeid" value={this.state.volumeId} onChange={this.handleChange} />
+                      
+                    </div >
+
+                    
+
+                    <div className="row" >
+
+                      <hr className="mb-4" />
+                      <button className="btn btn-primary btn-lg btn-block" type="submit" >Save</button>
+                      <input type="submit" value="Submit" />
+                    </div >
+                  </form >
+
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
       );
+    } else {
+      return this.renderNoBooks();
     }
-    return this.renderNoBooks();
-  }
 
-  renderLaoding() {
-    return (
-      <section className="jumbotron text-center">
-        <div className="container">
-          <Spinner name="line-scale" fadeIn="none" />
-        </div>
-      </section>
-    );
-  }
-
-  render() {
-    const { loading } = this.props;
-
-    if (loading === true) return this.renderLaoding();
-
-    return this.renderVolume();
+    
   }
 }
 
