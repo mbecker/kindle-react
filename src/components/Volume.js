@@ -8,22 +8,84 @@ import VolumeItem from "./VolumeItem";
 import HighlightItem from "./HighlightItem";
 
 class Volume extends Component {
+  
   constructor(props) {
     super(props);
-    //this.props.fetchVolumes();
-    const { volumes } = this.props;
-    this.state = {
-      key: "",
-      volumeId: ""
-    }
+    
+    this.state = { key: "",
+        volumeId: "",
+        volume: null };
     this.updateVolumeId = this.updateVolumeId.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    
+    
+    
+    
+  }
+  
+  componentDidMount() {
+    console.log("Volume.js - componentDidMount");
+     const { volumes, match } = this.props;
+    
     if (Object.keys(volumes).length === 0) {
+      console.log("Volume.js - fetchVolumes()");
       this.props.fetchVolumes();
-    } else {
-      // console.log("-- NO fetch volumes --");
+    } else if(this.state.volume === null) {
+      console.log("Volume.js - No fetchVolumes()");
+      
+      const volume = _.find(volumes, function (o) {
+        return o.data.title === match.params.title;
+      });
+      
+      if (typeof volume !== "undefined") {
+        this.setState({
+          key: volume.id,
+          volumeId: volume.data.volumeId,
+          volume: volume
+        });
+      }
+    
     }
   }
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("Volume.js - componentDidUpdate");
+    
+   
+    
+    
+    
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("Volume.js - shouldComponentUpdate - nextProps:", nextProps);
+    console.log("Volume.js - shouldComponentUpdate - nextState:", nextState);
+    
+    
+    if(this.state.key === "" && this.state.volume === null && typeof nextState.key !== "undefined" && nextState.key !== "" && nextState.key.length > 0 && typeof nextState.volume !== "undefined" && typeof nextState.volume.data !== "undefined") {
+      console.log("Volume.js - shouldComponentUpdate - should update because nextState is the volume: ", nextState.volume);
+      return true;
+    }
+    
+    if(this.state.volume === null && Object.keys(nextProps).length > 0 && typeof nextProps.match !== "undefined" && typeof nextProps.match.params !== "undefined" && typeof nextProps.match.params.title !== "undefined" && typeof nextProps.volumes !== "undefined" && Object.keys(nextProps.volumes).length > 0) {
+      const volume = _.find(nextProps.volumes, function (o) {
+        return o.data.title === nextProps.match.params.title;
+      });
+      
+      if (typeof volume !== "undefined") {
+        console.log("Volume.js - shouldComponentUpdate - setState:", volume.id);
+        this.setState({
+          key: volume.id,
+          volumeId: volume.data.volumeId,
+          volume: volume
+        });
+      }
+    }
+    
+    return true;
+  }
+  
+  
 
   handleChange(event) {
     this.setState({volumeId: event.target.value});
@@ -91,19 +153,13 @@ class Volume extends Component {
   }
 
   render() {
-    const { loading, volumes, match } = this.props;
+    const { loading } = this.props;
+    const { key, volumeId, volume } = this.state;
 
     if (loading === true) return this.renderLaoding();
-
-    const volume = _.find(volumes, function (o) {
-      return o.data.title === match.params.title;
-    });
-
-    if (typeof volume !== "undefined") {
-      this.setState({
-        key: volume.id, volumeId: volume.data.volumeId
-      });
-      return (
+    if (volume === null) return this.renderNoBooks();
+    if(volume !== null) {
+      return(
         <div id="volumeTitle">
           <section className="jumbotron text-center">
             <div className="container">
@@ -152,10 +208,9 @@ class Volume extends Component {
             </div >
           </div >
         </div >
-      );
-    } else {
-      return this.renderNoBooks();
+      )
     }
+    
 
     
   }

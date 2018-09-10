@@ -1,15 +1,15 @@
 import { volumesRef, volumeRefSet, highlightsRef } from "../config/firebase";
 import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS, UPDATE_VOLUMES } from "./types";
 
-export const updateVolumeId = (volumeKey, volumeId) => {
+export const updateVolumeId = (volumeKey, volumeId) => async dispatch => {
     volumeRefSet(volumeKey, volumeId).then((value) => {
         console.log("updateVolume", value);
-        // dispatch({
-        //     type: UPDATE_VOLUMES,
-        //     payload: payload
-        // });
+        dispatch({
+             type: UPDATE_VOLUMES,
+             payload: value
+        });
     })
-}
+};
 
 export const fetchVolumes = () => async dispatch => {
     dispatch({
