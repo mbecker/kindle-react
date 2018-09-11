@@ -16,7 +16,7 @@ db.settings({
     timestampsInSnapshots: true
   });
 
-export const volumesRef = db.collection("volumes");
+export const volumesRef = db.collection("books");
 export const updateVolume = function(key, volumeId) {
   return db.collection("volumes").doc(key).update({
     volumeId: volumeId,
