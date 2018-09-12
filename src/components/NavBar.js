@@ -24,13 +24,13 @@ class NavBar extends Component {
 
 
   render() {
-    const { history, collapse } = this.props;
+    const { collapse } = this.props;
     
     
     let navCollapseClassName = "active";
     if(!collapse) navCollapseClassName = "";
     
-    history.listen(location => console.log("history location change"));
+    
     return (
       
         <nav id="sidebar" className={navCollapseClassName}>

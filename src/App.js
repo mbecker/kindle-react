@@ -58,12 +58,12 @@ class App extends Component {
     
     
       <ConnectedRouter history={history}>
-      <div className="wrapper">
+      <div className="wrapper" id="top">
       
       
-      <NavBar id="top" history={history} collapse={collapse}/>
+      <NavBar collapse={collapse}/>
 
-        <Routes toggle={this.toggle}/>
+        <Routes toggle={this.toggle} history={history}/>
       
         
       

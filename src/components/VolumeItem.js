@@ -66,11 +66,11 @@ class VolumeItem extends Component {
 
   render() {
     const { volumeId, volume, volumeCount } = this.props;
-    console.log("Volume: ", volume);
+    
     let columnClassName = "col-md-4";
     if (volumeCount === 0) columnClassName = "col-md-6";
 
-    const linkTo = "/book/" + volume.title + "#volumeTitle";
+    const linkTo = "/book/" + volume.title + "#root";
 
     let bookCover;
     bookCover = this.bookImageDoesNotExist(linkTo);
@@ -98,7 +98,6 @@ class VolumeItem extends Component {
             <p className="card-text" style={{textAlign: "center",}}>
               <Link to={linkTo}>{volume.title} </Link>{" "}
             </p>
-            <p className="card-text" style={{textAlign: "center",fontSize: 0.7 + "em"}}>#{volumeId}</p>
             {/* <p className="card-text">{this.renderHighlights()}</p> */}
           </div>
         </div>
