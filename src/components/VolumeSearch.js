@@ -30,7 +30,7 @@ class VolumeSearch extends Component {
       return volumeItems;
     }
     return (
-      <div className="col s10 offset-s1 center-align">
+      <div className="col s10 offset-s1 text-center">
         <h4>No books exist</h4>
       </div>
     );

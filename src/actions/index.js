@@ -1,5 +1,5 @@
-import { volumesRef, updateVolume, highlightsRef } from "../config/firebase";
-import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS, UPDATE_VOLUMES } from "./types";
+import { volumesRef, updateVolume, highlightsRef, activitiesRef } from "../config/firebase";
+import { START_FETCH_VOLUMES, FETCH_VOLUMES, FETCH_HIGHLIGHTS, UPDATE_VOLUMES, START_FETCH_ACTIVITIES, FECTH_ACTIVITES } from "./types";
 
 export const updateVolumeId = (volumeKey, volumeId) => async dispatch => {
     updateVolume(volumeKey, volumeId)
@@ -38,6 +38,8 @@ export const fetchVolumes = () => async dispatch => {
                 data: documentSnapshot.data()
             }
         });
+
+
         dispatch({
             type: FETCH_VOLUMES,
             payload: payload
@@ -76,3 +78,30 @@ export const fetchHighlights = (volumeId) => async dispatch => {
     })
 };
 
+export const fetchActivites = () => async dispatch => {
+    dispatch({
+        type: START_FETCH_ACTIVITIES,
+        payload: true
+    })
+    activitiesRef.get().then((querySnapshot) => {
+        const payload = querySnapshot.docs.map(function (documentSnapshot) {
+            return {
+                id: documentSnapshot.id,
+                data: documentSnapshot.data()
+            }
+        });
+
+        let docsPayloed = {};
+        docsPayloed['listOfActivities'] = [];
+        querySnapshot.docs.forEach(element => {
+            docsPayloed[element.id] = element.data();
+            docsPayloed['listOfActivities'].push(element.id);
+        });
+        console.log("docsPayloed: ", docsPayloed);
+
+        dispatch({
+            type: FECTH_ACTIVITES,
+            payload: docsPayloed
+        });
+    });
+};

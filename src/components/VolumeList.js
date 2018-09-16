@@ -8,6 +8,7 @@ import Spinner from "react-spinkit";
 class VolumeList extends Component {
   constructor(props) {
     super(props);
+    
     const { volumes } = this.props;
     if (Object.keys(volumes).length === 0) {
       this.props.fetchVolumes();
@@ -17,9 +18,11 @@ class VolumeList extends Component {
   state = {};
 
   renderVolumes() {
+    console.log("Props: ", this.props);
     const { volumes } = this.props;
     let keyx = 0;
     const volumeItems = _.map(volumes, volume => {
+      console.log("????", volumes);
       keyx = keyx + 1;
       
       return (
@@ -34,7 +37,7 @@ class VolumeList extends Component {
       return volumeItems;
     }
     return (
-      <div className="col s10 offset-s1 center-align">
+      <div className="col s10 offset-s1 text-center">
         <h4>No books exist</h4>
       </div>
     );

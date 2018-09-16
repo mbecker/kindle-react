@@ -3,3 +3,9 @@ export const FETCH_VOLUME = "FECTH_VOLUME";
 export const FETCH_VOLUMES = "FECTH_VOLUMES";
 export const FETCH_HIGHLIGHTS = "FETCH_HIGHLIGHTS";
 export const UPDATE_VOLUMES = "UPDATE_VOLUMES";
+
+/*
+ * Activities
+ */
+export const START_FETCH_ACTIVITIES = "START_FETCH_ACTIVITIES";
+export const FECTH_ACTIVITES = "FECTH_ACTIVITES";

@@ -25,3 +25,8 @@ export const updateVolume = function(key, volumeId) {
 export const highlightsRef = function(volumeId){
   return db.collection("highlights").where("volume", "==", "volume/" + volumeId)
 }
+
+/*
+ * Activites
+ */
+export const activitiesRef = db.collection("activities");

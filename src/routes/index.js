@@ -7,6 +7,8 @@ import VolumeSearch from '../components/VolumeSearch';
 import Volume from "../components/Volume"
 import Footer from '../components/Footer'
 
+import ActivitiesList from "../components/activities/ActivitesList";
+
 class Routes extends Component {
     constructor(props) {
         super(props);
@@ -109,6 +111,7 @@ class Routes extends Component {
                             <Route exact path="/" component={VolumeList} />
                             <Route path="/volumes" component={VolumeList} />
                             <Route path="/book/:title" component={Volume} />
+                            <Route exact path="/activities" component={ActivitiesList} />
                             <Route component={NoMatch} />
                         </Switch>
                     )}
